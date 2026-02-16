@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: mzika
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/musicdb}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      client:
+        registration:
+          spotify:
+            client-id: ${SPOTIFY_CLIENT_ID}
+            client-secret: ${SPOTIFY_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri: "${BACKEND_URL:http://127.0.0.1:8080}/login/oauth2/code/spotify"
+            scope:
+              - user-read-email
+              - user-read-private
+              - playlist-read-private
+              - playlist-modify-public
+              - playlist-modify-private
+              - user-library-read
+        provider:
+          spotify:
+            authorization-uri: https://accounts.spotify.com/authorize
+            token-uri: https://accounts.spotify.com/api/token
+            user-info-uri: https://api.spotify.com/v1/me
+            user-name-attribute: id
+
+  session:
+    timeout: 24h
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    session:
+      cookie:
+        same-site: none
+        secure: ${COOKIE_SECURE:false}
+        http-only: true
+
+anthropic:
+  api:
+    key: ${ANTHROPIC_API_KEY:}
+    url: https://api.anthropic.com/v1/messages
+
+spotify:
+  api:
+    base-url: https://api.spotify.com/v1
+
+frontend:
+  url: ${FRONTEND_URL:http://127.0.0.1:4200}
+
+logging:
+  level:
+    org.springframework.security: WARN
