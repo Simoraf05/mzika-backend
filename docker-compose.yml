@@ -1,3 +1,5 @@
+# Docker Compose file for PostgreSQL database
+
 version: '3.8'
 
 services:

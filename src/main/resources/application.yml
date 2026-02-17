@@ -3,7 +3,7 @@ spring:
     name: mzika
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/musicdb}
+    url: ${DATABASE_URL:${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/musicdb}}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -50,12 +50,6 @@ server:
         same-site: none
         secure: ${COOKIE_SECURE:false}
         http-only: true
-
-anthropic:
-  api:
-    key: ${ANTHROPIC_API_KEY:}
-    url: https://api.anthropic.com/v1/messages
-
 spotify:
   api:
     base-url: https://api.spotify.com/v1
